@@ -1,90 +1,53 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Xadrez;
-
-public class Tabuleiro
-{
+    public class Tabuleiro
+    {
+        
+    // Matriz 8x8 para armazenar as peças
     public Pecas[,] Matriz { get; set; }
-
-    private List<PictureBox> pb = new List<PictureBox>();
-
-    Torre[] torres;
-    Cavalo[] cavalos;
-    Bispo[] bispos;
-    Rei[] reis;
-    Rainha[] damas;
-    Peao[] peoes;
 
     public Tabuleiro()
     {
-        Matriz = new Pecas[8,8];
-
-        torres = new Torre[4];
-        cavalos = new Cavalo[4];
-        bispos = new Bispo[4];
-        reis = new Rei[2];
-        damas = new Rainha[2];
-        peoes = new Peao[16];
-
-        torres[0] = new Torre("preta", 0, 0);
-        cavalos[0] = new Cavalo("preto", 0, 1);
-        bispos[0] = new Bispo("preto", 0, 2);
-        damas[0] = new Rainha("preta", 0, 3);
-        reis[0] = new Rei("preto", 0, 4);
-        bispos[1] = new Bispo("preto", 0, 5);
-        cavalos[1] = new Cavalo("preto", 0, 6);
-        torres[1] = new Torre("preta", 0, 7);
-
-        pb.Add(torres[0].torreImagem);
-        pb.Add(cavalos[0].cavaloImagem);
-        pb.Add(bispos[0].bispoImagem);
-        pb.Add(damas[0].rainhaImagem);
-        pb.Add(reis[0].reiImagem);
-        pb.Add(bispos[1].bispoImagem);
-        pb.Add(cavalos[1].cavaloImagem);
-        pb.Add(torres[1].torreImagem);
-
-        for (int i = 0; i < 8; i++)
-        {
-            peoes[i] = new Peao("preto", 1, i);
-            pb.Add(peoes[i].peaoImagem);
-        }
-
-        for (int i = 0; i < 8; i++)
-        {
-            peoes[i] = new Peao("branco", 6, i);
-            pb.Add(peoes[i].peaoImagem);
-        }
-
-        torres[2] = new Torre("branca", 7, 0);
-        cavalos[2] = new Cavalo("branco", 7, 1);
-        bispos[2] = new Bispo("branco", 7, 2);
-        damas[1] = new Rainha("branca", 7, 3);
-        reis[1] = new Rei("branco", 7, 4);
-        bispos[3] = new Bispo("branco", 7, 5);
-        cavalos[3] = new Cavalo("branco", 7, 6);
-        torres[3] = new Torre("branca", 7, 7);
-
-        pb.Add(torres[2].torreImagem);
-        pb.Add(cavalos[2].cavaloImagem);
-        pb.Add(bispos[2].bispoImagem);
-        pb.Add(damas[1].rainhaImagem);
-        pb.Add(reis[1].reiImagem);
-        pb.Add(bispos[3].bispoImagem);
-        pb.Add(cavalos[3].cavaloImagem);
-        pb.Add(torres[3].torreImagem);
+        // Inicializando a matriz 8x8
+        Matriz = new Pecas[8, 8];
     }
 
     // Inicializa o tabuleiro colocando as peças nas posições corretas
-    public void InicializarTabuleiro(Form1 arg)
+    public void InicializarTabuleiro()
     {
-        foreach (PictureBox imagem in pb)
+        // Colocando as peças brancas na primeira linha
+        Matriz[0, 0] = new Torre("Branca", 0, 0);
+        Matriz[0, 1] = new Cavalo("Branca", 0, 1);
+        Matriz[0, 2] = new Bispo("Branca", 0, 2);
+        Matriz[0, 3] = new Rainha("Branca", 0, 3);
+        Matriz[0, 4] = new Rei("Branca", 0, 4);
+        Matriz[0, 5] = new Bispo("Branca", 0, 5);
+        Matriz[0, 6] = new Cavalo("Branca", 0, 6);
+        Matriz[0, 7] = new Torre("Branca", 0, 7);
+
+        // Colocando os peões brancos na segunda linha
+        for (int i = 0; i < 8; i++)
         {
-            arg.Controls.Add(imagem);
+            Matriz[1, i] = new Peao("Branco", 1, i);
+        }
+
+        // Colocando as peças pretas na última linha
+        Matriz[7, 0] = new Torre("Preta", 7, 0);
+        Matriz[7, 1] = new Cavalo("Preta", 7, 1);
+        Matriz[7, 2] = new Bispo("Preta", 7, 2);
+        Matriz[7, 3] = new Rainha("Preta", 7, 3);
+        Matriz[7, 4] = new Rei("Preta", 7, 4);
+        Matriz[7, 5] = new Bispo("Preta", 7, 5);
+        Matriz[7, 6] = new Cavalo("Preta", 7, 6);
+        Matriz[7, 7] = new Torre("Preta", 7, 7);
+
+        // Colocando os peões pretos na penúltima linha
+        for (int i = 0; i < 8; i++)
+        {
+            Matriz[6, i] = new Peao("Preto", 6, i);
         }
     }
 
@@ -129,3 +92,5 @@ public class Tabuleiro
         return true;
     }
 }
+
+    
