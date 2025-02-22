@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+namespace Xadrez;
 
-       public class Rainha : Pecas
+public class Rainha : Pecas
 {
-    public Rainha(string cor, int linha, int coluna) : base(cor, linha, coluna) { }
-
+    public PictureBox rainhaImagem { get; private set; }
     public override bool MovimentoValido(int linhaDestino, int colunaDestino)
     {
-       
+
         if (linhaDestino < 1 || linhaDestino > 8 || colunaDestino < 1 || colunaDestino > 8)
         {
             return false;
@@ -37,6 +37,27 @@ using System.Threading.Tasks;
         // Caso contrário, não é um movimento válido
         return false;
     }
-}
+    public Rainha(string cor, int linha, int coluna) : base(cor, linha, coluna)
+    {
+        rainhaImagem = new PictureBox
+        {
+            Location = new Point(coluna * 50, linha * 50),
+            Size = new Size(45, 45),
+            SizeMode = PictureBoxSizeMode.StretchImage,
+            BackColor = Color.Transparent,
+            Parent = this,
+        };
 
-    
+        try
+        {
+            string path = Path.Combine(@"C:\Users\", Environment.UserName, "Xadrez-Poo", "bin", "Debug", "imagens", $"dama_{cor}.png");
+
+            MessageBox.Show("Tentando carregar: " + path);
+            rainhaImagem.Image = Image.FromFile(path);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("Erro ao carregar imagem: " + ex.Message);
+        }
+    }
+}

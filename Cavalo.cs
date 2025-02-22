@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+namespace Xadrez;
 
 public class Cavalo : Pecas
 {
+    Cavalo cavalo;
+    public PictureBox cavaloImagem { get; private set; }
     public override bool MovimentoValido(int LinhaDestino, int ColunaDestino)
     {
         if (LinhaDestino < 1 || LinhaDestino > 8 || ColunaDestino < 1 || ColunaDestino > 8)
@@ -21,40 +24,26 @@ public class Cavalo : Pecas
 
     public Cavalo(string cor, int linha, int coluna) : base(cor, linha, coluna)
     {
-
-        PictureBox cavalo = new PictureBox();
-        cavalo.Location = new Point(50, 50);
-        cavalo.Size = new Size(50, 50);
-        cavalo.SizeMode = PictureBoxSizeMode.StretchImage;
-        PictureBox torre = new PictureBox();
-
-        if ((linha + coluna) % 2 == 0)
+        cavaloImagem = new PictureBox
         {
-            try
-            {
-                string path = Path.Combine(@"D:\Users\20231170150047\Xadrez-Poo", "bin", "Debug", "imagens", "cavalo_branco.png");
-                MessageBox.Show("Tentando carregar: " + path);
-                cavalo.Image = Image.FromFile(path);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro ao carregar imagem: " + ex.Message);
-            }
-          
+            Location = new Point(coluna * 50, linha * 50),
+            Size = new Size(45, 45),
+            SizeMode = PictureBoxSizeMode.StretchImage,
+            BackColor = Color.Transparent,
+            Parent = this,
+        };
+
+        try
+        {
+            string path = Path.Combine(@"C:\Users\", Environment.UserName, "Xadrez-Poo", "bin", "Debug", "imagens", $"cavalo_{cor}.png");
+
+            MessageBox.Show("Tentando carregar: " + path);
+            cavaloImagem.Image = Image.FromFile(path);
         }
-        else {
-          try
-            {
-                string path = Path.Combine(@"D:\Users\20231170150047\Xadrez-Poo", "bin", "Debug", "imagens", "cavalo_preto.png");
-                MessageBox.Show("Tentando carregar: " + path);
-                cavalo.Image = Image.FromFile(path);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro ao carregar imagem: " + ex.Message);
-            }
+        catch (Exception ex)
+        {
+            MessageBox.Show("Erro ao carregar imagem: " + ex.Message);
         }
-        this.Controls.Add(cavalo);
 
     }
 }
