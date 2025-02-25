@@ -1,31 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\McKay\\Xadrez-Poo\\Xadrez.csproj": {}
+    "D:\\Users\\20231170150047\\Xadrez-Poo\\Xadrez.csproj": {}
   },
   "projects": {
-    "C:\\Users\\McKay\\Xadrez-Poo\\Xadrez.csproj": {
+    "D:\\Users\\20231170150047\\Xadrez-Poo\\Xadrez.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\McKay\\Xadrez-Poo\\Xadrez.csproj",
+        "projectUniqueName": "D:\\Users\\20231170150047\\Xadrez-Poo\\Xadrez.csproj",
         "projectName": "Xadrez",
-        "projectPath": "C:\\Users\\McKay\\Xadrez-Poo\\Xadrez.csproj",
-        "packagesPath": "C:\\Users\\McKay\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\McKay\\Xadrez-Poo\\obj\\",
+        "projectPath": "D:\\Users\\20231170150047\\Xadrez-Poo\\Xadrez.csproj",
+        "packagesPath": "D:\\Users\\20231170150047\\.nuget\\packages\\",
+        "outputPath": "D:\\Users\\20231170150047\\Xadrez-Poo\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\McKay\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "D:\\Users\\20231170150047\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0-windows"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -38,11 +32,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -67,7 +56,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.406/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

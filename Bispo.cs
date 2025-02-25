@@ -26,13 +26,14 @@ public class Bispo : Pecas
             Location = new Point(coluna * 50, linha * 50),
             Size = new Size(45, 45),
             SizeMode = PictureBoxSizeMode.StretchImage,
-            BackColor = Color.Transparent,
             Parent = this,
         };
 
+        bispoImagem.BackColor = (linha+coluna)%2==0 ? Color.White : Color.Black;
+        
         try
         {
-            string path = Path.Combine(@"C:\Users\", Environment.UserName, "Xadrez-Poo", "bin", "Debug", "imagens", $"bispo_{cor}.png");
+            string path = Path.Combine(@"D:\Users\", Environment.UserName, "Xadrez-Poo", "bin", "Debug", "imagens", $"bispo_{cor}.png");
 
             MessageBox.Show("Tentando carregar: " + path);
             bispoImagem.Image = Image.FromFile(path);

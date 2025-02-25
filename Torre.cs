@@ -26,15 +26,16 @@ public class Torre : Pecas
         torreImagem = new PictureBox
         {
             Location = new Point(coluna * 50, linha * 50),
-            Size = new Size(45, 50),
+            Size = new Size(50, 50),
             SizeMode = PictureBoxSizeMode.StretchImage,
-            BackColor = Color.Transparent,
             Parent = this,
         };
 
+        torreImagem.BackColor = (linha+coluna)%2==0 ? Color.White : Color.Black;
+
         try
         {
-            string path = Path.Combine(@"C:\Users\", Environment.UserName, "Xadrez-Poo", "bin", "Debug", "imagens", $"torre_{cor}.png");
+            string path = Path.Combine(@"D:\Users\", Environment.UserName, "Xadrez-Poo", "bin", "Debug", "imagens", $"torre_{cor}.png");
 
             MessageBox.Show("Tentando carregar: " + path);
             torreImagem.Image = Image.FromFile(path);
