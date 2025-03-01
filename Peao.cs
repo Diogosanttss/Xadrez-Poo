@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,61 +8,65 @@ namespace Xadrez;
 
 public class Peao : Pecas
 {
-    public PictureBox peaoImagem { get; private set; }
-    bool primeiroMovimento;
-    Peao peaoAdversario;
-    public override bool MovimentoValido(int LinhaDestino, int ColunaDestino)
+    // public PictureBox peaoImagem { get; private set; }
+    bool primeiroMovimento = true;
+    public override bool MovimentoValido(int LinhaDestino, int ColunaDestino, Pecas pecaDestino)
     {
-        if (LinhaDestino < 1 || LinhaDestino > 8 || ColunaDestino < 1 || ColunaDestino > 8)
+        if (LinhaDestino < 0 || LinhaDestino > 7 || ColunaDestino < 0 || ColunaDestino > 7)
         {
             return false;
         }
-        int difLinha = Math.Abs(linha - LinhaDestino);
-        int difColuna = Math.Abs(coluna - ColunaDestino);
 
-        if (difColuna == 0)
+        // Define a direção do movimento:
+        // Peão branco avança para linhas maiores (+1) e preto para linhas menores (-1)
+        int direcao = (cor == "branco") ? 1 : -1;
+
+        // Diferença real de linhas e colunas
+        int difLinha = LinhaDestino - linha;       // importante: usa a linha atual (não a coluna)
+        int difColuna = ColunaDestino - coluna;      // valor com sinal para capturar o sentido
+
+        // Movimento normal: 1 casa para frente sem mudança lateral
+        if (difColuna == 0 && difLinha == direcao)
         {
-            if ((cor == "branca" && LinhaDestino == linha + 1) ||
-                (cor == "preta" && LinhaDestino == linha - 1))
-            {
-                return true; // Movimento normal de 1 casa para frente
-            }
-            if (primeiroMovimento &&
-                ((cor == "branca" && LinhaDestino == linha + 2) ||
-                 (cor == "preta" && LinhaDestino == linha - 2)))
-            {
-                return true; // Movimento especial: 2 casas no primeiro movimento
-            }
+            primeiroMovimento = false;
+            return true;
         }
-        if (difLinha == 1 && difColuna == 1 && peaoAdversario != null && peaoAdversario.cor != cor)
+
+        // Movimento duplo: 2 casas para frente no primeiro movimento
+        if (difColuna == 0 && difLinha == 2 * direcao && primeiroMovimento)
         {
-            return true; // Captura diagonal
+            primeiroMovimento = false;
+            return true;
         }
-        if (difLinha == 1 && difColuna == 1 && peaoAdversario != null && peaoAdversario.cor != cor)
+
+        // Captura diagonal: 1 casa em diagonal para frente
+        if (Math.Abs(difColuna) == 1 && difLinha == direcao)
         {
-            return true; // En Passant (captura especial)
+            if (!(pecaDestino is CasaVazia) && pecaDestino.cor != cor)
+            {
+                return true;
+            }
         }
 
         return false; // Movimento inválido
     }
-    public Peao(string cor, int linha, int coluna) : base(cor, linha, coluna)
+    public Peao(string Cor, int Linha, int Coluna) : base(Cor, Linha, Coluna)
     {
-        peaoImagem = new PictureBox
+        pictureBox = new PictureBox
         {
             Location = new Point(coluna * 50, linha * 50),
-            Size = new Size(45, 45),
+            Size = new Size(48, 48),
             SizeMode = PictureBoxSizeMode.StretchImage,
             Parent = this,
         };
 
-        peaoImagem.BackColor = (linha+coluna)%2==0 ? Color.White : Color.Black;
-        
+        pictureBox.BackColor = (linha + coluna) % 2 == 0 ? Color.White : Color.Black;
+
         try
         {
-            string path = Path.Combine(@"D:\Users\", Environment.UserName, "Xadrez-Poo", "bin", "Debug", "imagens", $"peao_{cor}.png");
-
-            MessageBox.Show("Tentando carregar: " + path);
-            peaoImagem.Image = Image.FromFile(path);
+            string path = Path.Combine($@"{disk}:\Users\", Environment.UserName, "Xadrez-Poo", "bin", "Debug", "imagens", $"peao_{cor}.png"); // Se estiver dando erro, edite o valor da variável 'disk' para "D"
+            // MessageBox.Show("Tentando carregar: " + path);
+            pictureBox.Image = Image.FromFile(path);
         }
         catch (Exception ex)
         {

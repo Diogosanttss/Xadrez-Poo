@@ -17,18 +17,24 @@ public class Tabuleiro
     Bispo[] bispos;
     Rei[] reis;
     Rainha[] damas;
-    Peao[] peoes;
+    Peao[] peoesPretos;
+    Peao[] peoesBrancos;
 
+    CasaVazia[,] empty_case;
+
+    List<Pecas> listPecas = new List<Pecas>();
     public Tabuleiro()
     {
-        Matriz = new Pecas[8,8];
+        Matriz = new Pecas[8, 8];
 
         torres = new Torre[4];
         cavalos = new Cavalo[4];
         bispos = new Bispo[4];
         reis = new Rei[2];
         damas = new Rainha[2];
-        peoes = new Peao[16];
+        peoesPretos = new Peao[8];
+        peoesBrancos = new Peao[8];
+        empty_case = new CasaVazia[6, 8];
 
         torres[0] = new Torre("preta", 0, 0);
         cavalos[0] = new Cavalo("preto", 0, 1);
@@ -39,25 +45,49 @@ public class Tabuleiro
         cavalos[1] = new Cavalo("preto", 0, 6);
         torres[1] = new Torre("preta", 0, 7);
 
-        pb.Add(torres[0].torreImagem);
-        pb.Add(cavalos[0].cavaloImagem);
-        pb.Add(bispos[0].bispoImagem);
-        pb.Add(damas[0].rainhaImagem);
-        pb.Add(reis[0].reiImagem);
-        pb.Add(bispos[1].bispoImagem);
-        pb.Add(cavalos[1].cavaloImagem);
-        pb.Add(torres[1].torreImagem);
-
-        for (int i = 0; i < 8; i++)
+        for (int i = 2; i < 6; i++)
         {
-            peoes[i] = new Peao("preto", 1, i);
-            pb.Add(peoes[i].peaoImagem);
+            for (int j = 0; j < 8; j++)
+            {
+                empty_case[i - 2, j] = new CasaVazia("casavazia", i, j);
+                pb.Add(empty_case[i - 2, j].pictureBox);
+                listPecas.Add(empty_case[i - 2, j]);
+            }
         }
 
+        pb.Add(torres[0].pictureBox);
+        pb.Add(cavalos[0].pictureBox);
+        pb.Add(bispos[0].pictureBox);
+        pb.Add(damas[0].pictureBox);
+        pb.Add(reis[0].pictureBox);
+        pb.Add(bispos[1].pictureBox);
+        pb.Add(cavalos[1].pictureBox);
+        pb.Add(torres[1].pictureBox);
+
+        listPecas.Add(torres[0]);
+        listPecas.Add(cavalos[0]);
+        listPecas.Add(bispos[0]);
+        listPecas.Add(damas[0]);
+        listPecas.Add(reis[0]);
+        listPecas.Add(bispos[1]);
+        listPecas.Add(cavalos[1]);
+        listPecas.Add(torres[1]);
+
+
+
         for (int i = 0; i < 8; i++)
         {
-            peoes[i] = new Peao("branco", 6, i);
-            pb.Add(peoes[i].peaoImagem);
+            peoesPretos[i] = new Peao("preto", 1, i);
+            pb.Add(peoesPretos[i].pictureBox);
+            listPecas.Add(peoesPretos[i]);
+        }
+
+
+        for (int i = 0; i < 8; i++)
+        {
+            peoesBrancos[i] = new Peao("branco", 6, i);
+            pb.Add(peoesBrancos[i].pictureBox);
+            listPecas.Add(peoesBrancos[i]);
         }
 
         torres[2] = new Torre("branca", 7, 0);
@@ -69,22 +99,52 @@ public class Tabuleiro
         cavalos[3] = new Cavalo("branco", 7, 6);
         torres[3] = new Torre("branca", 7, 7);
 
-        pb.Add(torres[2].torreImagem);
-        pb.Add(cavalos[2].cavaloImagem);
-        pb.Add(bispos[2].bispoImagem);
-        pb.Add(damas[1].rainhaImagem);
-        pb.Add(reis[1].reiImagem);
-        pb.Add(bispos[3].bispoImagem);
-        pb.Add(cavalos[3].cavaloImagem);
-        pb.Add(torres[3].torreImagem);
+
+        pb.Add(torres[2].pictureBox);
+        pb.Add(cavalos[2].pictureBox);
+        pb.Add(bispos[2].pictureBox);
+        pb.Add(damas[1].pictureBox);
+        pb.Add(reis[1].pictureBox);
+        pb.Add(bispos[3].pictureBox);
+        pb.Add(cavalos[3].pictureBox);
+        pb.Add(torres[3].pictureBox);
+
+        listPecas.Add(torres[2]);
+        listPecas.Add(cavalos[2]);
+        listPecas.Add(bispos[2]);
+        listPecas.Add(damas[1]);
+        listPecas.Add(reis[1]);
+        listPecas.Add(bispos[3]);
+        listPecas.Add(cavalos[3]);
+        listPecas.Add(torres[3]);
+
     }
 
-    // Inicializa o tabuleiro colocando as peças nas posições corretas
     public void InicializarTabuleiro(Form1 arg)
     {
+
+        for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                Matriz[i, j] = new CasaVazia("casavazia", i, j);
+            }
+        }
+
         foreach (PictureBox imagem in pb)
         {
             arg.Controls.Add(imagem);
+        }
+
+        foreach (Pecas p in listPecas)
+        {
+            if (p.pictureBox != null)
+            {
+                p.pictureBox.Click += (sender, args) => { arg.ClickNoTabuleiro(p); };
+            }
+
+            // Posiciona cada peça na matriz corretamente
+            Matriz[p.linha, p.coluna] = p;
         }
     }
 
@@ -115,11 +175,11 @@ public class Tabuleiro
         }
 
         // Verificar se o movimento da peça é válido de acordo com a peça
-        if (!pecaOrigem.MovimentoValido(linhaDestino, colunaDestino))
-        {
-            Console.WriteLine("Movimento inválido para a peça.");
-            return false;
-        }
+        // if (!pecaOrigem.MovimentoValido(linhaDestino, colunaDestino))
+        // {
+        //     Console.WriteLine("Movimento inválido para a peça.");
+        //     return false;
+        // }
 
         // Mover a peça (por enquanto sem considerar movimentos como roque ou en passant)
         Matriz[linhaDestino, colunaDestino] = pecaOrigem;
