@@ -76,7 +76,7 @@ public partial class Form1 : Form
                 pecaOrigem.coluna = peca.coluna;
 
                 // Atualiza a posição visualmente
-                pecaOrigem.pictureBox.Location = new Point(pecaOrigem.coluna * 50, pecaOrigem.linha * 50);
+                pecaOrigem.pictureBox.Location = new Point(pecaOrigem.coluna * 50, pecaOrigem.linha * 50); // Eu juro que daqui pra frente, eu nunca vou esquecer dessa desgraça, isso vai ser meu pesadelo de todas as noites ╰（‵□′）╯
                 pecaOrigem.pictureBox.BackColor = (pecaOrigem.linha + peca.coluna) % 2 == 0 ? Color.White : Color.Black;
                 pecaOrigem.pictureBox.Visible = true;
                 if (!this.Controls.Contains(pecaOrigem.pictureBox))
