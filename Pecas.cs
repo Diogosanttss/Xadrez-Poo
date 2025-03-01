@@ -11,6 +11,10 @@ public abstract class Pecas : Form
     public int linha;
     public int coluna;
 
+    public PictureBox pictureBox = new PictureBox();
+
+    protected string disk { get; private set; } = "C";
+
     public Pecas(string Cor, int Linha, int Coluna)
     {
         cor = Cor;
@@ -18,5 +22,5 @@ public abstract class Pecas : Form
         coluna = Coluna;
     }
     public Pecas() { }
-    public abstract bool MovimentoValido(int LinhaDestino, int ColunaDestino);
+    public abstract bool MovimentoValido(int LinhaDestino, int ColunaDestino, Pecas pecaDestino);
 }
