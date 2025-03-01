@@ -7,11 +7,10 @@ namespace Xadrez;
 
 public class Cavalo : Pecas
 {
-    Cavalo cavalo;
-    public PictureBox cavaloImagem { get; private set; }
-    public override bool MovimentoValido(int LinhaDestino, int ColunaDestino)
+    // public PictureBox cavaloImagem { get; private set; }
+    public override bool MovimentoValido(int LinhaDestino, int ColunaDestino, Pecas pecaDestino)
     {
-        if (LinhaDestino < 1 || LinhaDestino > 8 || ColunaDestino < 1 || ColunaDestino > 8)
+        if (LinhaDestino < 0 || LinhaDestino > 7 || ColunaDestino < 0 || ColunaDestino > 7)
         {
             return false;
         }
@@ -24,22 +23,21 @@ public class Cavalo : Pecas
 
     public Cavalo(string cor, int linha, int coluna) : base(cor, linha, coluna)
     {
-        cavaloImagem = new PictureBox
+        pictureBox = new PictureBox
         {
             Location = new Point(coluna * 50, linha * 50),
-            Size = new Size(45, 45),
+            Size = new Size(48, 48),
             SizeMode = PictureBoxSizeMode.StretchImage,
             Parent = this,
         };
 
-        cavaloImagem.BackColor = (linha+coluna)%2==0 ? Color.White : Color.Black;
+        pictureBox.BackColor = (linha+coluna)%2==0 ? Color.White : Color.Black;
         
         try
         {
-            string path = Path.Combine(@"D:\Users\", Environment.UserName, "Xadrez-Poo", "bin", "Debug", "imagens", $"cavalo_{cor}.png");
-
-            MessageBox.Show("Tentando carregar: " + path);
-            cavaloImagem.Image = Image.FromFile(path);
+            string path = Path.Combine($@"{disk}:\Users\", Environment.UserName, "Xadrez-Poo", "bin", "Debug", "imagens", $"cavalo_{cor}.png"); // Se estiver dando erro, edite o valor da variável 'disk' para "D"
+            // MessageBox.Show("Tentando carregar: " + path);
+            pictureBox.Image = Image.FromFile(path);
         }
         catch (Exception ex)
         {

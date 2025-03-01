@@ -12,7 +12,6 @@ partial class Form1 : Form
 
     private const int TamanhoDaMatriz = 8;
     private Button[,] matriz = new Button[TamanhoDaMatriz, TamanhoDaMatriz];
-    private Tabuleiro tb = new Tabuleiro();
 
     /// <summary>
     ///  Clean up any resources being used.
@@ -41,7 +40,13 @@ partial class Form1 : Form
         this.Text = "Xadrez";
         this.AutoSize = true;
 
-        tb.InicializarTabuleiro(this);
+        // try{
+        //     tb.InicializarTabuleiro(this);
+        // }catch(Exception e){
+        //     MessageBox.Show($"Erro ao iniciar {e.Message}\n{e.StackTrace}");
+        //     Console.WriteLine(e.StackTrace);
+        //     // throw new InvalidOperationException("Alguma coisa deu muito errado " + e);
+        // }
         //this.Load += new System.EventHandler(this.Form1_Load);
         
         for (int linha = 0; linha < TamanhoDaMatriz; linha++)
