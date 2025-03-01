@@ -8,37 +8,37 @@ namespace Xadrez;
 
 public class Torre : Pecas
 {
-    public PictureBox torreImagem { get; private set; }
-    public override bool MovimentoValido(int LinhaDestino, int ColunaDestino)
+    // public PictureBox torreImagem { get; private set; }
+    public override bool MovimentoValido(int LinhaDestino, int ColunaDestino, Pecas pecaDestino)
     {
-        if (LinhaDestino < 1 || LinhaDestino > 8 || ColunaDestino < 1 || ColunaDestino > 8)
+        if (LinhaDestino < 0 || LinhaDestino > 7 || ColunaDestino < 0 || ColunaDestino > 7)
         {
             return false;
         }
-        if (linha != LinhaDestino && coluna != ColunaDestino)
+        if (LinhaDestino <= 7 || ColunaDestino <= 7)
         {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
     public Torre(string cor, int linha, int coluna) : base(cor, linha, coluna)
     {
-        torreImagem = new PictureBox
+        pictureBox = new PictureBox
         {
             Location = new Point(coluna * 50, linha * 50),
             Size = new Size(50, 50),
             SizeMode = PictureBoxSizeMode.StretchImage,
             Parent = this,
+            
         };
 
-        torreImagem.BackColor = (linha+coluna)%2==0 ? Color.White : Color.Black;
+        pictureBox.BackColor = (linha+coluna)%2==0 ? Color.White : Color.Black;
 
         try
         {
-            string path = Path.Combine(@"D:\Users\", Environment.UserName, "Xadrez-Poo", "bin", "Debug", "imagens", $"torre_{cor}.png");
-
-            MessageBox.Show("Tentando carregar: " + path);
-            torreImagem.Image = Image.FromFile(path);
+            string path = Path.Combine($@"{disk}:\Users\", Environment.UserName, "Xadrez-Poo", "bin", "Debug", "imagens", $"torre_{cor}.png"); // Se estiver dando erro, edite o valor da variável 'disk' para "D"
+            // MessageBox.Show("Tentando carregar: " + path);
+            pictureBox.Image = Image.FromFile(path);
         }
         catch (Exception ex)
         {

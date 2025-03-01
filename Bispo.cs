@@ -7,8 +7,8 @@ namespace Xadrez;
 
 public class Bispo : Pecas
 {
-    public PictureBox bispoImagem { get; private set; }
-    public override bool MovimentoValido(int LinhaDestino, int ColunaDestino)
+    // public PictureBox bispoImagem { get; private set; }
+    public override bool MovimentoValido(int LinhaDestino, int ColunaDestino, Pecas pecaDestino)
     {
         if (LinhaDestino < 1 || LinhaDestino > 8 || ColunaDestino < 1 || ColunaDestino > 8)
         {
@@ -21,22 +21,21 @@ public class Bispo : Pecas
     }
     public Bispo(string cor, int linha, int coluna) : base(cor, linha, coluna)
     {
-        bispoImagem = new PictureBox
+        pictureBox = new PictureBox
         {
             Location = new Point(coluna * 50, linha * 50),
-            Size = new Size(45, 45),
+            Size = new Size(48, 48),
             SizeMode = PictureBoxSizeMode.StretchImage,
             Parent = this,
         };
 
-        bispoImagem.BackColor = (linha+coluna)%2==0 ? Color.White : Color.Black;
+        pictureBox.BackColor = (linha+coluna)%2==0 ? Color.White : Color.Black;
         
         try
         {
-            string path = Path.Combine(@"D:\Users\", Environment.UserName, "Xadrez-Poo", "bin", "Debug", "imagens", $"bispo_{cor}.png");
-
-            MessageBox.Show("Tentando carregar: " + path);
-            bispoImagem.Image = Image.FromFile(path);
+            string path = Path.Combine($@"{disk}:\Users\", Environment.UserName, "Xadrez-Poo", "bin", "Debug", "imagens", $"bispo_{cor}.png"); // Se estiver dando erro, edite o valor da variável 'disk' para "D"
+            // MessageBox.Show("Tentando carregar: " + path);
+            pictureBox.Image = Image.FromFile(path);
         }
         catch (Exception ex)
         {
