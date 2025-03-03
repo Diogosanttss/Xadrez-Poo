@@ -7,34 +7,27 @@ namespace Xadrez;
 
 public class Rainha : Pecas
 {
-    // public PictureBox rainhaImagem { get; private set; }
-    public override bool MovimentoValido(int linhaDestino, int colunaDestino, Pecas pecaDestino)
+    public override bool MovimentoValido(int LinhaDestino, int ColunaDestino, Pecas pecaDestino)
     {
 
-        if (linhaDestino < 1 || linhaDestino > 8 || colunaDestino < 1 || colunaDestino > 8)
-        {
+        if (LinhaDestino < 0 || LinhaDestino > 7 || ColunaDestino < 0 || ColunaDestino > 7)
             return false;
-        }
 
-        // Verificar se o movimento é horizontal (mesma linha)
-        if (linhaDestino == this.linha && colunaDestino != this.coluna)
-        {
+        int difLinha = Math.Abs(LinhaDestino - linha);
+        int difColuna = Math.Abs(ColunaDestino - coluna);
+
+        // Não permite não mover
+        if (LinhaDestino == linha && ColunaDestino == coluna)
+            return false;
+
+        // Movimento horizontal ou vertical
+        if (LinhaDestino == linha || ColunaDestino == coluna)
             return true;
-        }
 
-        // Verificar se o movimento é vertical (mesma coluna)
-        if (colunaDestino == this.coluna && linhaDestino != this.linha)
-        {
+        // Movimento diagonal
+        if (difLinha == difColuna)
             return true;
-        }
 
-        // Verificar se o movimento é diagonal
-        if (Math.Abs(linhaDestino - this.linha) == Math.Abs(colunaDestino - this.coluna))
-        {
-            return true;
-        }
-
-        // Caso contrário, não é um movimento válido
         return false;
     }
     public Rainha(string cor, int linha, int coluna) : base(cor, linha, coluna)
@@ -48,6 +41,7 @@ public class Rainha : Pecas
         };
         
         pictureBox.BackColor = (linha+coluna)%2==0 ? Color.White : Color.Black;
+        this.BringToFront();
         
         try
         {

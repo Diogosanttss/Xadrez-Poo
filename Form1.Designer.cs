@@ -39,40 +39,33 @@ partial class Form1 : Form
         this.ClientSize = new System.Drawing.Size(350, 350);
         this.Text = "Xadrez";
         this.AutoSize = true;
-
-        // try{
-        //     tb.InicializarTabuleiro(this);
-        // }catch(Exception e){
-        //     MessageBox.Show($"Erro ao iniciar {e.Message}\n{e.StackTrace}");
-        //     Console.WriteLine(e.StackTrace);
-        //     // throw new InvalidOperationException("Alguma coisa deu muito errado " + e);
-        // }
-        //this.Load += new System.EventHandler(this.Form1_Load);
+        this.MaximizeBox = false;
+        this.FormBorderStyle = FormBorderStyle.FixedDialog;
         
-        for (int linha = 0; linha < TamanhoDaMatriz; linha++)
-        {
-            for (int coluna = 0; coluna < TamanhoDaMatriz; coluna++)
-            {
-                Button b = new Button();
-                if ((coluna + linha) % 2 == 0)
-                {
-                    b.Size = new Size(50, 50);
-                    b.Location = new Point(50 * linha, 50 * coluna);
-                    b.BackColor = Color.White;
-                    matriz[linha, coluna] = b;
-                    this.Controls.Add(b);
-                }
-                else
-                {
-                    b.Size = new Size(50, 50);
-                    b.Location = new Point(50 * linha, 50 * coluna);
-                    b.BackColor = Color.Black;
-                    matriz[linha, coluna] = b;
-                }
+        // for (int linha = 0; linha < TamanhoDaMatriz; linha++)
+        // {
+        //     for (int coluna = 0; coluna < TamanhoDaMatriz; coluna++)
+        //     {
+        //         Button b = new Button();
+        //         if ((coluna + linha) % 2 == 0)
+        //         {
+        //             b.Size = new Size(50, 50);
+        //             b.Location = new Point(50 * linha, 50 * coluna);
+        //             b.BackColor = Color.White;
+        //             matriz[linha, coluna] = b;
+        //             this.Controls.Add(b);
+        //         }
+        //         else
+        //         {
+        //             b.Size = new Size(50, 50);
+        //             b.Location = new Point(50 * linha, 50 * coluna);
+        //             b.BackColor = Color.Black;
+        //             matriz[linha, coluna] = b;
+        //         }
 
-                this.Controls.Add(b);
-            }
-        }
+        //         this.Controls.Add(b);
+        //     }
+        // }
     }
     #endregion
 }

@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace Xadrez;
 
 public class Rei : Pecas
 {
-    // public PictureBox reiImagem { get; private set; }
-    // bool movimentou;
     public Rei(string cor, int linha, int coluna) : base(cor, linha, coluna)
     {
         pictureBox = new PictureBox
@@ -19,7 +18,7 @@ public class Rei : Pecas
             Parent = this,
         };
 
-        pictureBox.BackColor = (linha+coluna)%2==0 ? Color.White : Color.Black;
+        pictureBox.BackColor = (linha + coluna) % 2 == 0 ? Color.White : Color.Black;
 
         try
         {
@@ -34,10 +33,11 @@ public class Rei : Pecas
     }
     public override bool MovimentoValido(int LinhaDestino, int ColunaDestino, Pecas pecaDestino)
     {
-        int difLinha = Math.Abs(LinhaDestino - linha);
-        int difColuna = Math.Abs(ColunaDestino - coluna);
+        int difLinha = LinhaDestino - linha;
+        int difColuna = ColunaDestino - coluna;
 
-        // O Rei pode se mover apenas uma casa em qualquer direção
-        return difLinha <= 1 && difColuna <= 1;
+        return difLinha <= 1 || difColuna <= 1 || difColuna >= -1 || difLinha >= -1;
+
+
     }
 }

@@ -7,8 +7,6 @@ namespace Xadrez;
 
 public class CasaVazia : Pecas
 {
-    // public PictureBox casaVaziaImagem { get; private set; }
-
     public CasaVazia() : base() { }
 
     public CasaVazia(string nome, int linha, int coluna) : base(nome, linha, coluna)

@@ -15,11 +15,12 @@ public class Torre : Pecas
         {
             return false;
         }
-        if (LinhaDestino <= 7 || ColunaDestino <= 7)
-        {
-            return true;
-        }
-        return false;
+        
+        if (LinhaDestino == linha && ColunaDestino == coluna)
+            return false;
+
+        // Movimento horizontal ou vertical
+        return (LinhaDestino == linha) || (ColunaDestino == coluna);
     }
     public Torre(string cor, int linha, int coluna) : base(cor, linha, coluna)
     {
