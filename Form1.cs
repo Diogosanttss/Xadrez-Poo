@@ -176,6 +176,8 @@ public partial class Form1 : Form
                 tabuleiro[peca.linha, peca.coluna] = pecaOrigem;
                 tabuleiro[origemX, origemY] = CriarCasaVazia(origemX, origemY);
 
+                this.Controls.Add(tabuleiro[origemX, origemY].pictureBox);
+
                 // Atualiza a posição visualmente
                 pecaOrigem.linha = peca.linha;
                 pecaOrigem.coluna = peca.coluna;
